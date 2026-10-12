@@ -1,3 +1,4 @@
+
 package com.example.backend.config;
 
 import org.springframework.context.annotation.Bean;
@@ -14,7 +15,8 @@ import java.util.Arrays;
 public class SecurityConfig {
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http)
+            throws Exception {
 
         http
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
@@ -33,36 +35,27 @@ public class SecurityConfig {
 
         CorsConfiguration configuration = new CorsConfiguration();
 
-        configuration.setAllowedOrigins(
-            Arrays.asList(
-                "http://localhost:5173",
-                "http://localhost:5174"
-            )
-        );
+        configuration.setAllowedOrigins(Arrays.asList(
+            "http://localhost:5173",
+            "http://localhost:5174",
+            "https://ai-event-recommendation.netlify.app"
+        ));
 
-        configuration.setAllowedMethods(
-            Arrays.asList(
-                "GET",
-                "POST",
-                "PUT",
-                "DELETE",
-                "OPTIONS"
-            )
-        );
+        configuration.setAllowedMethods(Arrays.asList(
+            "GET",
+            "POST",
+            "PUT",
+            "DELETE",
+            "OPTIONS"
+        ));
 
-        configuration.setAllowedHeaders(
-            Arrays.asList("*")
-        );
-
+        configuration.setAllowedHeaders(Arrays.asList("*"));
         configuration.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source =
-                new UrlBasedCorsConfigurationSource();
+            new UrlBasedCorsConfigurationSource();
 
-        source.registerCorsConfiguration(
-                "/**",
-                configuration
-        );
+        source.registerCorsConfiguration("/**", configuration);
 
         return source;
     }
